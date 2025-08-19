@@ -1,0 +1,18 @@
+{
+    "name": "membrane-azure-function",
+    "version": "1.0.0",
+    "type": "module",
+    "main": "dist/index.js",
+    "scripts": {
+        "build": "tsc -p tsconfig.json",
+        "start": "func start",
+        "dev": "npm run build && func start --javascript"
+    },
+    "dependencies": {
+        "@azure/functions": "^4.6.0"
+    },
+    "devDependencies": {
+        "@types/node": "^24.3.0",
+        "typescript": "^5.6.3"
+    }
+}
