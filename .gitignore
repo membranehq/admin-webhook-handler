@@ -139,3 +139,10 @@ dist
 vite.config.js.timestamp-*
 vite.config.ts.timestamp-*
 
+# AI generated files
+.claude/
+
+# Membrane files
+membrane.config.yml
+
+!membrane/

@@ -30,6 +30,46 @@ This service receives and processes organization-related events from Membrane in
 
 **Note**: Node.js v23 is not supported by Azure Functions v4. Use Node.js v18 or v20.
 
+#### Membrane preparation:
+
+- create gmail integration (from the latest public version)
+- create send-email action for gmail integration
+```yaml
+name: Send Email
+isDeactivated: false
+state: READY
+errors: []
+key: send-email
+isCustomized: true
+type: create-data-record
+inputSchema:
+  type: object
+  properties:
+    to:
+      type: array
+      items:
+        type: string
+    subject:
+      type: string
+    body:
+      type: string
+    htmlBody:
+      type: string
+config:
+  dataSource:
+    collectionKey: emails
+  fieldMapping:
+    defaultValue:
+      body:
+        $var: $.input.body
+      subject:
+        $var: $.input.subject
+      to:
+        $var: $.input.to
+      html_body:
+        $var: $.input.htmlBody
+```
+
 ### Setup
 
 1. Install dependencies:
