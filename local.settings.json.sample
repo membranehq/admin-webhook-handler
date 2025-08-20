@@ -3,6 +3,11 @@
     "Values": {
       "AzureWebJobsStorage": "UseDevelopmentStorage=true",
       "FUNCTIONS_WORKER_RUNTIME": "node",
-      "WEBHOOK_SECRET": "dev-secret"
+      "WEBHOOK_SECRET": "dev-secret",
+      "MEMBRANE_WORKSPACE_KEY": "your-workspace-key",
+      "MEMBRANE_WORKSPACE_SECRET": "your-workspace-secret",
+      "GMAIL_CONNECTION_ID": "your-gmail-connection-id",
+      "CUSTOMER_ID": "your-customer-id",
+      "CUSTOMER_NAME": "your-customer-name"
     }
   }

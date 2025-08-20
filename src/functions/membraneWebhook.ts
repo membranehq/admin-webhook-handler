@@ -1,5 +1,6 @@
 import { app, HttpRequest, HttpResponseInit, InvocationContext } from "@azure/functions";
 import crypto from "crypto";
+import { MembraneService } from "../services/membraneService.js";
 
 /**
  * Membrane sends:
@@ -87,7 +88,28 @@ app.http("membrane-webhook", {
           orgId: event.org.id,
           orgName: event.org.name
         });
-        // TODO: enqueue job / notify email / Slack etc.
+        
+        // Send invitation email
+        try {
+          await MembraneService.sendEmailWithAutoConnection({
+            to: event.user.email,
+            subject: `You've been invited to join ${event.org.name}`,
+            body: `Hello,
+
+You've been invited by ${event.issuer.name} (${event.issuer.email}) to join the organization "${event.org.name}".
+
+Click the link below to accept your invitation:
+${event.invitationUrl}
+
+${event.org.trialEndDate ? `Note: This organization's trial ends on ${event.org.trialEndDate}` : ''}
+
+Best regards,
+The Team`
+          });
+          ctx.log("Invitation email sent successfully");
+        } catch (error) {
+          ctx.error("Failed to send invitation email", error);
+        }
         break;
       }
 
@@ -97,7 +119,35 @@ app.http("membrane-webhook", {
           requesterEmail: event.user.email,
           adminCount: event.orgAdmins.length
         });
-        // TODO: notify org admins, create ticket, etc.
+        
+        // Send notification emails to all org admins
+        for (const admin of event.orgAdmins) {
+          try {
+            await MembraneService.sendEmailWithAutoConnection({
+              to: admin.email,
+              subject: "New Organization Access Request",
+              body: `Hello,
+
+A user has requested access to your organization(s).
+
+Requester Details:
+- Email: ${event.user.email}
+- Name: ${event.user.name || 'Not provided'}
+- User ID: ${event.user.id}
+
+Organizations they're requesting access to:
+${admin.orgs.map(org => `- ${org.name} (ID: ${org.id})`).join('\n')}
+
+Please review this request and take appropriate action in your admin dashboard.
+
+Best regards,
+The Team`
+            });
+            ctx.log(`Access request notification sent to admin: ${admin.email}`);
+          } catch (error) {
+            ctx.error(`Failed to send access request notification to ${admin.email}`, error);
+          }
+        }
         break;
       }
 
@@ -108,7 +158,32 @@ app.http("membrane-webhook", {
           workspaceName: event.workspaceName,
           creatorEmail: event.user.email
         });
-        // TODO: bootstrap resources, send welcome email, etc.
+        
+        // Send welcome email to organization creator
+        try {
+          await MembraneService.sendEmailWithAutoConnection({
+            to: event.user.email,
+            subject: `Welcome to ${event.org.name}!`,
+            body: `Hello ${event.user.name || 'there'},
+
+Congratulations! Your organization "${event.org.name}" has been successfully created.
+
+Organization Details:
+- Organization Name: ${event.org.name}
+- Workspace Name: ${event.workspaceName}
+- Organization ID: ${event.org.id}
+${event.org.domains ? `- Domains: ${event.org.domains.join(', ')}` : ''}
+${event.org.trialEndDate ? `- Trial ends: ${event.org.trialEndDate}` : ''}
+
+You can now start inviting team members and setting up your workspace.
+
+Best regards,
+The Team`
+          });
+          ctx.log("Welcome email sent successfully");
+        } catch (error) {
+          ctx.error("Failed to send welcome email", error);
+        }
         break;
       }
 

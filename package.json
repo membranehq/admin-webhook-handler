@@ -9,9 +9,12 @@
         "dev": "npm run build && func start --javascript"
     },
     "dependencies": {
-        "@azure/functions": "^4.6.0"
+        "@azure/functions": "^4.6.0",
+        "@membranehq/sdk": "^0.5.1",
+        "jsonwebtoken": "^9.0.2"
     },
     "devDependencies": {
+        "@types/jsonwebtoken": "^9.0.10",
         "@types/node": "^24.3.0",
         "typescript": "^5.6.3"
     }

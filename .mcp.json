@@ -1,0 +1,13 @@
+{
+  "mcpServers": {
+    "membrane": {
+      "command": "membrane",
+      "args": [
+        "mcp"
+      ],
+      "env": {
+        "AGENT_NAME": "Claude Code"
+      }
+    }
+  }
+}
