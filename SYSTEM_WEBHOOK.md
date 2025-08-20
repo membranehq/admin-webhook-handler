@@ -169,3 +169,17 @@ ngrok http 3000
 
 # Use the generated HTTPS URL in webhook configuration
 ```
+
+
+❯ az functionapp config appsettings set \
+    --name "func-webhook-5674854" \
+    --resource-group "rg-webhook-handler" \
+    --settings \
+      "FUNCTIONS_WORKER_RUNTIME=node" \
+      "WEBHOOK_SECRET=your-production-webhook-secret" \
+      "MEMBRANE_WORKSPACE_KEY=0d1fc4d4-a91b-482d-ab49-592dde31f821" \
+      "MEMBRANE_WORKSPACE_SECRET=dc5f4f3b77d6dce0ffcb7afec59c703edcb53211fc66ad85e9a97daecc5f11ff" \
+      "GMAIL_CONNECTION_ID=68a57f2087e6ee781fed5c54" \
+      "CUSTOMER_ID=668d0b1805550207c651fb77" \
+      "CUSTOMER_NAME=Vadym Khodak" \
+      "WEBSITE_RUN_FROM_PACKAGE=1"
