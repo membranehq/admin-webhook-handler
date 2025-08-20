@@ -1,0 +1,23 @@
+{
+  "name": "membrane-google-cloud-function",
+  "version": "1.0.0",
+  "type": "module",
+  "main": "dist/index.js",
+  "scripts": {
+    "build": "tsc -p tsconfig.json",
+    "dev": "npm run build && functions-framework --target=membraneWebhook --source=dist --port=8080",
+    "deploy": "npm run build && gcloud functions deploy membrane-webhook --runtime nodejs20 --trigger-http --entry-point membraneWebhook --source .",
+    "test": "npm run build && curl -X POST http://localhost:8080 -H 'Content-Type: application/json' -d @test-payload.json"
+  },
+  "dependencies": {
+    "@google-cloud/functions-framework": "^3.4.2",
+    "@google-cloud/logging": "^11.2.0",
+    "@membranehq/sdk": "^0.5.1",
+    "jsonwebtoken": "^9.0.2"
+  },
+  "devDependencies": {
+    "@types/jsonwebtoken": "^9.0.10",
+    "@types/node": "^20.14.0",
+    "typescript": "^5.6.3"
+  }
+}

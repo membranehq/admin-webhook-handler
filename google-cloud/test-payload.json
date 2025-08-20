@@ -1,0 +1,16 @@
+{
+  "type": "user-invited-to-org",
+  "invitationUrl": "https://console.example.com/org-invitations/12345",
+  "issuer": {
+    "name": "John Admin",
+    "email": "admin@company.com"
+  },
+  "user": {
+    "email": "newuser@company.com"
+  },
+  "org": {
+    "id": "org123",
+    "name": "Test Organization",
+    "trialEndDate": "2025-05-16"
+  }
+}
