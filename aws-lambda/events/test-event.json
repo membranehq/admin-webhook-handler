@@ -1,0 +1,40 @@
+{
+  "httpMethod": "POST",
+  "path": "/webhooks/membrane",
+  "headers": {
+    "Content-Type": "application/json",
+    "x-signature": "test-signature"
+  },
+  "body": "{\"type\":\"user-invited-to-org\",\"invitationUrl\":\"https://console.example.com/org-invitations/12345\",\"issuer\":{\"name\":\"John Admin\",\"email\":\"admin@company.com\"},\"user\":{\"email\":\"newuser@company.com\"},\"org\":{\"id\":\"org123\",\"name\":\"Test Organization\",\"trialEndDate\":\"2025-05-16\"}}",
+  "isBase64Encoded": false,
+  "queryStringParameters": null,
+  "pathParameters": null,
+  "stageVariables": null,
+  "requestContext": {
+    "requestId": "test-request",
+    "stage": "dev",
+    "resourceId": "test",
+    "httpMethod": "POST",
+    "resourcePath": "/webhooks/membrane",
+    "path": "/dev/webhooks/membrane",
+    "accountId": "123456789012",
+    "apiId": "test-api",
+    "protocol": "HTTP/1.1",
+    "requestTime": "09/Apr/2015:12:34:56 +0000",
+    "requestTimeEpoch": 1428582896000,
+    "identity": {
+      "cognitoIdentityPoolId": null,
+      "accountId": null,
+      "cognitoIdentityId": null,
+      "caller": null,
+      "sourceIp": "127.0.0.1",
+      "principalOrgId": null,
+      "accessKey": null,
+      "cognitoAuthenticationType": null,
+      "cognitoAuthenticationProvider": null,
+      "userArn": null,
+      "userAgent": "Custom User Agent String",
+      "user": null
+    }
+  }
+}
